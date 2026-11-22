@@ -61,9 +61,9 @@ public class MoveController {
                 dialogBoxService.showInter("수색할곳", places);
                 System.out.print("번호 입력: ");
                 String pick = scanner.nextLine();
-                try {
+                if (isNumber(pick) && Integer.parseInt(pick) < places.size()) {
                     places.get(Integer.parseInt(pick)).find();
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                } else {
                     dialogBoxService.use(nowScene, "나", "'그런 곳은 없다'");
                 }
             }
@@ -77,35 +77,52 @@ public class MoveController {
                 dialogBoxService.showInter("조사할곳", places);
                 System.out.print("번호 입력: ");
                 String pick = scanner.nextLine();
-                try {
-                    Interact nowPlace = places.get(Integer.parseInt(pick));
-                    nowPlace.showInfo();
-                    if(!repository.items.isEmpty()){
-                        dialogBoxService.use(nowScene, "나", "물건을 사용할까");
-                        System.out.print("Y or N: ");
+                if (!isNumber(pick) || Integer.parseInt(pick) >= places.size()) {
+                    dialogBoxService.use(nowScene, "나", "'그런 곳은 없다'");
+                    return;
+                }
+                Interact nowPlace = places.get(Integer.parseInt(pick));
+                nowPlace.showInfo();
+                if(!repository.items.isEmpty()){
+                    dialogBoxService.use(nowScene, "나", "물건을 사용할까");
+                    System.out.print("Y or N: ");
+                    pick = scanner.nextLine();
+                    if(pick.equals("Y") || pick.equals("y")){
+                        dialogBoxService.showItem("가방",repository.items);
+                        System.out.print("번호입력: ");
                         pick = scanner.nextLine();
-                        if(pick.equals("Y") || pick.equals("y")){
-                            dialogBoxService.showItem("가방",repository.items);
-                            System.out.print("번호입력: ");
-                            pick = scanner.nextLine();
+                        if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
                             nowPlace.used(repository.items.get(Integer.parseInt(pick)));
+                        } else {
+                            dialogBoxService.use(nowScene, "나", "'그런 곳은 없다'");
                         }
                     }
-                } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                    dialogBoxService.use(nowScene, "나", "'그런 곳은 없다'");
                 }
             }
             default -> {
-                try {
+                if (isNumber(next)) {
                     if (nowScene.move()) {
                         Move(Integer.parseInt(next));
                     }
-                } catch (NumberFormatException e) {
+                } else {
                     System.out.println("다시 입력해");
                     Print();
                 }
             }
         }
 
+    }
+
+    private boolean isNumber(String text) {
+        if (text.isEmpty() || text.length() > 9) {
+            return false;
+        }
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            if (ch < '0' || ch > '9') {
+                return false;
+            }
+        }
+        return true;
     }
 }
