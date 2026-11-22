@@ -19,10 +19,20 @@ public class StartScene extends Sence{
     Door door;
 
     public StartScene(Repository repository){
+        doorOpen = false;
         list.add(new BedDown(this, repository));
         list.add(new Door(this, repository));
         door = new Door(this, repository);
         this.repository = repository;
+    }
+
+    @Override
+    public void reset(){
+        doorOpen = false;
+        list.clear();
+        list.add(new BedDown(this, repository));
+        list.add(new Door(this, repository));
+        door = new Door(this, repository);
     }
 
     @Override
@@ -80,7 +90,6 @@ public class StartScene extends Sence{
     public ArrayList<Interact> interacts(){
         return list;
     }
-
     public void open(){
         doorOpen = true;
     }

@@ -47,6 +47,13 @@ public class Interact {
             return;
         }
         dialogBoxService.use(place, "나", haveItem.itemName + "를 찾았다");
+        for(Item item : repository.items){
+            if(item.itemName.equals(haveItem.itemName)){
+                dialogBoxService.use(place, "나","하지만...");
+                dialogBoxService.use(place, "나","이미 같은 아이템을 들고 있어서 의미없을것 같다...");
+                return;
+            }
+        }
         repository.items.add(haveItem);
         this.haveItem = null;
     }

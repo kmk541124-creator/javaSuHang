@@ -1,7 +1,6 @@
 package entity.scene;
 
 public class HallScene extends Sence{
-
     @Override
     public String getName(){
         return "중앙";
@@ -42,4 +41,16 @@ public class HallScene extends Sence{
     }
 
 
+    @Override
+    public void first(){
+        dialogBoxService.use(this, "나", "...");
+        dialogBoxService.use(this, "나", "거대하다");
+        dialogBoxService.use(this, "나", "아까전의 그 남자의 복장,");
+        dialogBoxService.use(this, "나", "이곳의 모습,");
+        dialogBoxService.use(this, "나", "이곳은 거대한 연구실인것 같다");
+        dialogBoxService.use(this, "나", "지금은 망한것 같지만");
+        dialogBoxService.use(this, "나", "저 멀리 지도가 보인다");
+        dialogBoxService.use(this, "나", "드디어 제대로된 지도다");
+        this.first = true;
+    }
 }

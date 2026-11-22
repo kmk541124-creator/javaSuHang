@@ -3,6 +3,7 @@ package controller;
 
 import entity.interact.Interact;
 import entity.scene.Sence;
+import item.Item;
 import repository.ArtRepository;
 import repository.Repository;
 import service.service;
@@ -14,15 +15,42 @@ import java.util.Scanner;
 public class MoveController {
 
     public int location = 0;
+    private Boolean script = false;
+    private int retry = 0;
     Scanner scanner = new Scanner(System.in);
 
-    private ArtRepository artRepository = new ArtRepository();
-    private Repository repository = new Repository();
-    private service service = new service(repository);
+    private ArtRepository artRepository;
+    private Repository repository;
+    public MoveController(Repository repository){
+        this.repository = repository;
+        this.script = false;
+    }
+    private service service;
     private DialogBoxService dialogBoxService = new DialogBoxService(scanner);
 
     public void Move(int wantNext){
         location = service.Move(location, wantNext);
+        if(!repository.locations.get(location).first){
+            repository.locations.get(location).first();
+        }
+        Print();
+    }
+
+    public void Init(){
+        this.artRepository = new ArtRepository();
+        this.service = new service(repository);
+        Print();
+    }
+
+    public void reset(){
+        retry++;
+        this.script = false;
+        location = 0;
+        this.artRepository = new ArtRepository();
+        this.service = new service(repository);
+        for(Sence sence : repository.locations){
+            sence.reset();
+        }
         Print();
     }
 
@@ -44,10 +72,25 @@ public class MoveController {
 
     public void Print(){
         Sence nowScene = repository.locations.get(location);
+        if(nowScene.getName().equals("독방") && !script){
+            switch (retry){
+                case 1 -> {
+                    for(String string : repository.firstReset){
+                        dialogBoxService.use(nowScene,"나",string);
+                    }
+                }
+                case 2 -> {
+                    for(String string : repository.secondRest){
+                        dialogBoxService.use(nowScene,"나",string);
+                    }
+                }
+            }
+            script = true;
+        }
         dialogBoxService.showArt(nowScene.getSeance());
         System.out.println("현재 위치: " + nowScene.getName());
         System.out.println("어디로 가시겠습니까");
-        System.out.print("입력(M: 지도 열기, F: 수색, U: 조사): ");
+        System.out.print("입력(번호: 이동,M: 지도 열기, F: 수색, U: 조사, B: 가방): ");
         String next = scanner.nextLine();
         switch (next) {
             case "M", "m" -> OpenMap();
@@ -99,6 +142,36 @@ public class MoveController {
                     }
                 }
             }
+            case "B", "b" -> {
+                dialogBoxService.showArt(nowScene.getSeance());
+                dialogBoxService.showItem("가방", repository.items);
+                System.out.print("조사할 아이템: ");
+                String pickk = scanner.nextLine();
+                if(isNumber(pickk) && Integer.parseInt(pickk) < repository.items.size()){
+                    System.out.print("무엇을 할까(1: 사용, 2: 조사, 3:나가기): ");
+                    String pick = scanner.nextLine();
+                    if(isNumber(pick) && Integer.parseInt(pick) >= 1 && Integer.parseInt(pick) <= 3){
+                        Item item = repository.items.get(Integer.parseInt(pickk));
+                        switch (Integer.parseInt(pick)){
+                            case 1 -> {
+                                if(item.useCan()){
+                                    item.use(nowScene, this);
+                                } else{
+                                    String useInfo = repository.items.get(Integer.parseInt(pickk)).NotUse();
+                                    dialogBoxService.use(nowScene, "나", useInfo);
+                                }
+                            } case 2 -> {
+                                String findInfo = repository.items.get(Integer.parseInt(pickk)).ShowInfo();
+                                dialogBoxService.use(nowScene, "나", findInfo);
+                            }
+                        }
+                    } else{
+                        dialogBoxService.use(nowScene, "나","잘못되었다");
+                    }
+                } else{
+                    dialogBoxService.use(nowScene, "나", "그런 아이템은 없다");
+                }
+            }
             default -> {
                 if (isNumber(next)) {
                     if (nowScene.move()) {
@@ -110,7 +183,6 @@ public class MoveController {
                 }
             }
         }
-
     }
 
     private boolean isNumber(String text) {
