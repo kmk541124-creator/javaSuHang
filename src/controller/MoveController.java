@@ -20,13 +20,13 @@ public class MoveController {
     Scanner scanner = new Scanner(System.in);
 
     private ArtRepository artRepository;
-    private Repository repository;
+    private final Repository repository;
     public MoveController(Repository repository){
         this.repository = repository;
         this.script = false;
     }
     private service service;
-    private DialogBoxService dialogBoxService = new DialogBoxService(scanner);
+    private final DialogBoxService dialogBoxService = new DialogBoxService(scanner);
 
     public void Move(int wantNext){
         location = service.Move(location, wantNext);
