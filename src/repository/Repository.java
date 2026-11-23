@@ -25,7 +25,7 @@ public class Repository {
         locations.add(new StartScene(this));
         locations.add(new HallScene());
         locations.add(new RestaurantScene());
-        locations.add(new BreakScene());
+        locations.add(new BreakScene(this));
         locations.add(new BlockedLabScene());
         locations.add(new LabScene());
         locations.add(new ApexScene());

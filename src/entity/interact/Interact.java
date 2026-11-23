@@ -10,12 +10,12 @@ import java.util.Scanner;
 public class Interact {
 
     private Scanner scanner = new Scanner(System.in);
-    private DialogBoxService dialogBoxService = new DialogBoxService(scanner);
+    public DialogBoxService dialogBoxService = new DialogBoxService(scanner);
     public Sence place;
     public String name;
     public Item useItem;
     public Item haveItem;
-    private Repository repository;
+    public Repository repository;
     private String info;
 
     private String useSay;

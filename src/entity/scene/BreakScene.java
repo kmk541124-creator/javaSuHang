@@ -1,6 +1,19 @@
 package entity.scene;
 
+import entity.interact.*;
+import repository.Repository;
+import service.DialogBoxService;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class BreakScene extends Sence {
+
+    private Scanner scanner = new Scanner(System.in);
+    private DialogBoxService dialogBoxService = new DialogBoxService(scanner);
+    private ArrayList<Interact> list = new ArrayList<>();
+    private Repository repository;
+
     @Override
     public String getName(){
         return "창고";
@@ -37,5 +50,22 @@ public class BreakScene extends Sence {
                 |_.-'                                                                                                                                                      '-._|
                 +--------------------------------------------------------------------------------------------------------------------------------------------------------------+
                 """;
+    }
+
+    public BreakScene(Repository repository){
+        list.add(new Ice(this, repository));
+        list.add(new Shelf(this, repository));
+        this.repository = repository;
+    }
+    @Override
+    public void reset(){
+        list.clear();
+        list.add(new Ice(this, repository));
+        list.add(new Shelf(this, repository));
+    }
+
+    @Override
+    public ArrayList<Interact> interacts(){
+        return list;
     }
 }
