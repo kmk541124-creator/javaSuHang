@@ -64,6 +64,7 @@ public class MoveController {
                             }
                         }
                     }
+                    break;
                 case 3:
                     break;
                 case 4:
@@ -79,8 +80,9 @@ public class MoveController {
                                 if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
                                     if(repository.items.get(Integer.parseInt(pick)).itemName.equals("망치"))
                                         repository.locations.get(1).openBlock();
+
                                     else
-                                        System.out.println("망치 아님 꺼지셈");
+                                        dialogBoxService.say("나","망치 아닌데 병시노ㅗㅗㅗㅗ");
                                     return;
                                 } else {
                                     dialogBoxService.say("나", "'그런 곳은 없다'");
@@ -91,6 +93,7 @@ public class MoveController {
                             }
                         }
                     }
+                    break;
                 case 5:
                     if(!((HallScene)repository.locations.get(this.location)).openLab)
                     {
