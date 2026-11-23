@@ -134,7 +134,30 @@ public class MoveController {
                 case 6:
                     if(!((HallScene)repository.locations.get(this.location)).openApex)
                     {
-                        dialogBoxService.use(repository.locations.get(1), "나", "비밀번호로 잠겨있다.");
+                        Sence now = repository.locations.get(1);
+                        dialogBoxService.use(now,"나", "비밀번호로 잠겨있다..");
+                        if(!repository.items.isEmpty()){
+                            dialogBoxService.use(now,"나", "물건을 사용할까");
+                            System.out.print("Y or N: ");
+                            String pick = scanner.nextLine();
+                            if(pick.equals("Y") || pick.equals("y")){
+                                pick = dialogBoxService.showItem("가방",repository.items);
+                                if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
+                                    if(repository.items.get(Integer.parseInt(pick)).itemName.equals("코드")){
+                                        repository.locations.get(1).openApex();
+
+                                    } else {
+                                        dialogBoxService.use(repository.locations.get(1), "나","이건 사용할 수 없다");
+                                        return;
+                                    }
+                                } else {
+                                    dialogBoxService.use(repository.locations.get(1), "나", "'그런 곳은 없다'");
+                                    return;
+                                }
+                            } else{
+                                return;
+                            }
+                        }
                         return;
                     }
             }
