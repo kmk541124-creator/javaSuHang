@@ -32,6 +32,7 @@ void main() {
     for(String string : repository.secondString){
         dialogBoxService.use(startScene, "나", string);
     }
+    dialogBoxService.skipping = false;
 
     repository.items.add(item);
     while (true){

@@ -30,8 +30,10 @@ public class MoveController {
 
     public void Move(int wantNext){
         location = service.Move(location, wantNext);
-        if(!repository.locations.get(location).first){
-            repository.locations.get(location).first();
+        Sence nextScene = repository.locations.get(location);
+        if(!nextScene.first){
+            nextScene.first();
+            nextScene.dialogBoxService.skipping = false;
         }
         Print();
     }

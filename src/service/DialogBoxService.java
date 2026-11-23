@@ -20,6 +20,7 @@ public class DialogBoxService {
 
     private final Scanner scanner;
     private String[] artLines = new String[0];
+    public boolean skipping = false;
 
     public DialogBoxService(Scanner scanner) {
         this.scanner = scanner;
@@ -35,16 +36,22 @@ public class DialogBoxService {
     }
 
     public void say(String speaker, String text) {
+        if (skipping) {
+            return;
+        }
         drawBox(speaker);
         List<String> lines = wrap(text);
         for (int i = 0; i < lines.size() && i < MAX_TEXT_LINES; i++) {
             moveTo(BOX_TOP + 2 + i, BOX_LEFT + 3);
             typeWrite(lines.get(i));
         }
-        moveTo(BOX_TOP + BOX_HEIGHT - 2, BOX_LEFT + BOX_WIDTH - 12);
-        System.out.print("[Enter >]");
+        moveTo(BOX_TOP + BOX_HEIGHT - 2, BOX_LEFT + BOX_WIDTH - 22);
+        System.out.print("[Enter >  S: 스킵]");
         System.out.flush();
-        scanner.nextLine();
+        String input = scanner.nextLine();
+        if (input.equals("S") || input.equals("s")) {
+            skipping = true;
+        }
     }
 
     public void close() {
@@ -141,6 +148,9 @@ public class DialogBoxService {
     }
 
     public void use(Sence place, String speaker, String say){
+        if (skipping) {
+            return;
+        }
         showArt(place.getSeance());
         say(speaker, say);
         close();
