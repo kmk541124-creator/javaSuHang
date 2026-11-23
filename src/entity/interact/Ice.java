@@ -1,7 +1,6 @@
 package entity.interact;
 
 import entity.scene.BreakScene;
-import entity.scene.StartScene;
 import item.Item;
 import item.Key;
 import item.RestaurantKey;
@@ -9,9 +8,9 @@ import repository.Repository;
 
 public class Ice extends Interact{
 
-    private Repository repository;
+    private final Repository repository;
     private Boolean used;
-    private BreakScene breakScene;
+    private final BreakScene breakScene;
     public Ice(BreakScene breakScene, Repository repository){
         super(breakScene, repository, "얼음", new Key("성냥"), "성냥으로 얼음을 녹였다", null);
         this.breakScene = breakScene;
