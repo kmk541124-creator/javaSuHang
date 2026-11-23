@@ -49,7 +49,11 @@ public class MoveController {
                             if(pick.equals("Y") || pick.equals("y")){
                                 pick = dialogBoxService.showItem("가방",repository.items);
                                 if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
-                                    repository.locations.get(1).openRest();
+                                    if(repository.items.get(Integer.parseInt(pick)).itemName.equals("식당 열쇠")){
+                                        repository.locations.get(1).openRest();
+                                    } else {
+                                        dialogBoxService.say("나","이건 사용할 수 없다");
+                                    }
                                     return;
                                 } else {
                                     dialogBoxService.say("나", "'그런 곳은 없다'");
@@ -72,6 +76,34 @@ public class MoveController {
                     if(!((HallScene)repository.locations.get(this.location)).openLab)
                     {
                         dialogBoxService.say("나", "잠겨있다.");
+                        if(!repository.items.isEmpty()){
+                            dialogBoxService.say("나", "물건을 사용할까");
+                            System.out.print("Y or N: ");
+                            String pick = scanner.nextLine();
+                            if(pick.equals("Y") || pick.equals("y")){
+                                pick = dialogBoxService.showItem("가방",repository.items);
+                                if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
+                                    if(repository.items.get(Integer.parseInt(pick)).itemName.equals("카드키")){
+                                        if(repository.items.get(Integer.parseInt(pick)).Interact()){
+                                            repository.locations.get(1).openLab();
+                                            return;
+                                        } else {
+                                            dialogBoxService.say("나","권한이 부족하다");
+                                            return;
+                                        }
+
+                                    } else {
+                                        dialogBoxService.say("나","이건 사용할 수 없다");
+                                        return;
+                                    }
+                                } else {
+                                    dialogBoxService.say("나", "'그런 곳은 없다'");
+                                    return;
+                                }
+                            } else{
+                                return;
+                            }
+                        }
                         return;
                     }
                 case 6:

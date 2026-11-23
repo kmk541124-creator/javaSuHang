@@ -17,9 +17,9 @@ public class Item
         return null;
     }
 
-    public void Interact()
+    public Boolean Interact()
     {
-
+        return true;
     }
 
     public String ShowInfo()

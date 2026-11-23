@@ -63,4 +63,9 @@ public class HallScene extends Sence{
     public void openRest(){
         this.openRest = true;
     }
+
+    @Override
+    public void openLab(){
+        this.openLab = true;
+    }
 }
