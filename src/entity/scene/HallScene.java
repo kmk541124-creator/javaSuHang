@@ -1,6 +1,11 @@
 package entity.scene;
 
 public class HallScene extends Sence{
+    public boolean openRest;
+    public boolean openBlock;
+    public boolean openLab;
+    public boolean openApex;
+
     @Override
     public String getName(){
         return "중앙";

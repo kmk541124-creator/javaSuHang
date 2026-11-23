@@ -2,6 +2,7 @@ package controller;
 
 
 import entity.interact.Interact;
+import entity.scene.HallScene;
 import entity.scene.Sence;
 import item.Item;
 import repository.ArtRepository;
@@ -29,6 +30,39 @@ public class MoveController {
     private final DialogBoxService dialogBoxService = new DialogBoxService(scanner);
 
     public void Move(int wantNext){
+        if(wantNext == this.location) return;
+        if(location == 1)
+        {
+            switch(wantNext)
+            {
+                case 2:
+                    if(!((HallScene)repository.locations.get(this.location)).openRest)
+                    {
+                        dialogBoxService.say("나", "잠겨있다.");
+                        return;
+                    }
+                case 3:
+                    break;
+                case 4:
+                    if(!((HallScene)repository.locations.get(this.location)).openBlock)
+                    {
+                        dialogBoxService.say("나", "판자로 막혀있다.");
+                        return;
+                    }
+                case 5:
+                    if(!((HallScene)repository.locations.get(this.location)).openLab)
+                    {
+                        dialogBoxService.say("나", "잠겨있다.");
+                        return;
+                    }
+                case 6:
+                    if(!((HallScene)repository.locations.get(this.location)).openApex)
+                    {
+                        dialogBoxService.say("나", "비밀번호로 잠겨있다.");
+                        return;
+                    }
+            }
+        }
         location = service.Move(location, wantNext);
         Sence nextScene = repository.locations.get(location);
         if(!nextScene.first){
