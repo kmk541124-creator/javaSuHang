@@ -3,6 +3,7 @@ package controller;
 
 import entity.interact.Interact;
 import entity.scene.HallScene;
+import entity.scene.RestaurantScene;
 import entity.scene.Sence;
 import item.Item;
 import repository.ArtRepository;
@@ -29,6 +30,8 @@ public class MoveController {
     private service service;
     private final DialogBoxService dialogBoxService = new DialogBoxService(scanner);
 
+
+
     public void Move(int wantNext){
         if(wantNext == this.location) return;
         if(location == 1)
@@ -39,7 +42,23 @@ public class MoveController {
                     if(!((HallScene)repository.locations.get(this.location)).openRest)
                     {
                         dialogBoxService.say("나", "잠겨있다.");
-                        return;
+                        if(!repository.items.isEmpty()){
+                            dialogBoxService.say("나", "물건을 사용할까");
+                            System.out.print("Y or N: ");
+                            String pick = scanner.nextLine();
+                            if(pick.equals("Y") || pick.equals("y")){
+                                pick = dialogBoxService.showItem("가방",repository.items);
+                                if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
+                                    repository.locations.get(1).openRest();
+                                    return;
+                                } else {
+                                    dialogBoxService.say("나", "'그런 곳은 없다'");
+                                    return;
+                                }
+                            } else{
+                                return;
+                            }
+                        }
                     }
                 case 3:
                     break;
@@ -159,7 +178,7 @@ public class MoveController {
                 Interact nowPlace = places.get(Integer.parseInt(pick));
                 nowPlace.showInfo();
                 if(!repository.items.isEmpty()){
-                    dialogBoxService.use(nowScene, "나", "물건을 사용할까");
+                    dialogBoxService.say("나", "물건을 사용할까");
                     System.out.print("Y or N: ");
                     pick = scanner.nextLine();
                     if(pick.equals("Y") || pick.equals("y")){
@@ -167,7 +186,7 @@ public class MoveController {
                         if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
                             nowPlace.used(repository.items.get(Integer.parseInt(pick)));
                         } else {
-                            dialogBoxService.use(nowScene, "나", "'그런 곳은 없다'");
+                            dialogBoxService.say("나", "'그런 곳은 없다'");
                         }
                     }
                 }

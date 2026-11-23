@@ -58,4 +58,9 @@ public class HallScene extends Sence{
         dialogBoxService.use(this, "나", "드디어 제대로된 지도다");
         this.first = true;
     }
+
+    @Override
+    public void openRest(){
+        this.openRest = true;
+    }
 }

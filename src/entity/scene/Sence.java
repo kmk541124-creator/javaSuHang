@@ -35,4 +35,17 @@ public class Sence {
     public void first(){
 
     }
+
+    public void openRest(){
+
+    }
+    public void openApex(){
+
+    }
+
+    public void openBlock(){
+
+    }
+
+    public void openLab(){}
 }
