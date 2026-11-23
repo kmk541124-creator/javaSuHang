@@ -36,6 +36,8 @@ public class Ice extends Interact{
         if(super.used(item)){
             if(!used){
                 repository.items.add(new RestaurantKey("식당 열쇠"));
+                repository.items.remove(item);
+                dialogBoxService.say("나", "식당 열쇠를 얻었다.");
                 used = true;
                 return true;
             }

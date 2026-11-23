@@ -101,4 +101,18 @@ public class Repository {
         secondRest.add("젠장...");
     }
 
+    public void RemoveItemByName(String itemName)
+    {
+        if(itemName == null) return;
+        for(Item item : items)
+        {
+            if(item.itemName == null) return;
+            if(item.itemName.equals(itemName))
+            {
+                items.remove(item);
+                return;
+            }
+        }
+    }
+
 }
