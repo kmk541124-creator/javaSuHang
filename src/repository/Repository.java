@@ -24,7 +24,7 @@ public class Repository {
     public Repository(){
         locations.add(new StartScene(this));
         locations.add(new HallScene());
-        locations.add(new RestaurantScene());
+        locations.add(new RestaurantScene(this));
         locations.add(new BreakScene(this));
         locations.add(new BlockedLabScene());
         locations.add(new LabScene());

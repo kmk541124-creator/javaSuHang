@@ -70,7 +70,26 @@ public class MoveController {
                     if(!((HallScene)repository.locations.get(this.location)).openBlock)
                     {
                         dialogBoxService.say("나", "판자로 막혀있다.");
-                        return;
+                        if(!repository.items.isEmpty()){
+                            dialogBoxService.say("나", "물건을 사용할까");
+                            System.out.print("Y or N: ");
+                            String pick = scanner.nextLine();
+                            if(pick.equals("Y") || pick.equals("y")){
+                                pick = dialogBoxService.showItem("가방",repository.items);
+                                if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
+                                    if(repository.items.get(Integer.parseInt(pick)).itemName.equals("망치"))
+                                        repository.locations.get(1).openBlock();
+                                    else
+                                        System.out.println("망치 아님 꺼지셈");
+                                    return;
+                                } else {
+                                    dialogBoxService.say("나", "'그런 곳은 없다'");
+                                    return;
+                                }
+                            } else{
+                                return;
+                            }
+                        }
                     }
                 case 5:
                     if(!((HallScene)repository.locations.get(this.location)).openLab)

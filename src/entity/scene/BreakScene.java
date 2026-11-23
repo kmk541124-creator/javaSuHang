@@ -2,15 +2,11 @@ package entity.scene;
 
 import entity.interact.*;
 import repository.Repository;
-import service.DialogBoxService;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BreakScene extends Sence {
 
-    private Scanner scanner = new Scanner(System.in);
-    private DialogBoxService dialogBoxService = new DialogBoxService(scanner);
     private ArrayList<Interact> list = new ArrayList<>();
     private Repository repository;
 

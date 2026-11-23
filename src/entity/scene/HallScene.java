@@ -1,10 +1,12 @@
 package entity.scene;
 
+
 public class HallScene extends Sence{
     public boolean openRest;
     public boolean openBlock;
     public boolean openLab;
     public boolean openApex;
+
 
     @Override
     public String getName(){
@@ -45,7 +47,6 @@ public class HallScene extends Sence{
             """;
     }
 
-
     @Override
     public void first(){
         dialogBoxService.use(this, "나", "...");
@@ -68,4 +69,6 @@ public class HallScene extends Sence{
     public void openLab(){
         this.openLab = true;
     }
+    @Override
+    public void openBlock() { this.openBlock = true; }
 }
