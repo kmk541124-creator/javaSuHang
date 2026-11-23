@@ -146,7 +146,7 @@ public class DialogBoxService {
         close();
     }
 
-    public void showInter(String title, List<Interact> items) {
+    public String showInter(String title, List<Interact> items) {
         drawBox(title);
         int columns = (items.size() + MAX_TEXT_LINES - 1) / MAX_TEXT_LINES;
         int columnWidth = TEXT_WIDTH / Math.max(columns, 1);
@@ -158,11 +158,13 @@ public class DialogBoxService {
         }
         moveTo(artLines.length + 1, 1);
         System.out.flush();
-        scanner.nextLine();
+        System.out.print("번호 입력: ");
+        String result = scanner.nextLine();
         close();
+        return result;
     }
 
-    public void showItem(String title, List<Item> items){
+    public String showItem(String title, List<Item> items){
         drawBox(title);
         int columns = (items.size() + MAX_TEXT_LINES - 1) / MAX_TEXT_LINES;
         int columnWidth = TEXT_WIDTH / Math.max(columns, 1);
@@ -174,7 +176,9 @@ public class DialogBoxService {
         }
         moveTo(artLines.length + 1, 1);
         System.out.flush();
-        scanner.nextLine();
+        System.out.print("조사/사용할 아이템 번호입력: ");
+        String result = scanner.nextLine();
         close();
+        return result;
     }
 }

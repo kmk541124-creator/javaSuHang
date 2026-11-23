@@ -101,9 +101,7 @@ public class MoveController {
                     return;
                 }
                 dialogBoxService.use(nowScene, "나", "'어디를 수색할까'");
-                dialogBoxService.showInter("수색할 곳", places);
-                System.out.print("번호 입력: ");
-                String pick = scanner.nextLine();
+                String pick = dialogBoxService.showInter("수색할 곳", places);
                 if (isNumber(pick) && Integer.parseInt(pick) < places.size()) {
                     places.get(Integer.parseInt(pick)).find();
                 } else {
@@ -117,9 +115,7 @@ public class MoveController {
                     return;
                 }
                 dialogBoxService.use(nowScene, "나", "'어디를 조사할까'");
-                dialogBoxService.showInter("조사할 곳", places);
-                System.out.print("번호 입력: ");
-                String pick = scanner.nextLine();
+                String pick = dialogBoxService.showInter("조사할 곳", places);
                 if (!isNumber(pick) || Integer.parseInt(pick) >= places.size()) {
                     dialogBoxService.use(nowScene, "나", "'그런 곳은 없다'");
                     return;
@@ -131,9 +127,7 @@ public class MoveController {
                     System.out.print("Y or N: ");
                     pick = scanner.nextLine();
                     if(pick.equals("Y") || pick.equals("y")){
-                        dialogBoxService.showItem("가방",repository.items);
-                        System.out.print("번호입력: ");
-                        pick = scanner.nextLine();
+                        pick = dialogBoxService.showItem("가방",repository.items);
                         if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
                             nowPlace.used(repository.items.get(Integer.parseInt(pick)));
                         } else {
@@ -144,9 +138,7 @@ public class MoveController {
             }
             case "B", "b" -> {
                 dialogBoxService.showArt(nowScene.getSeance());
-                dialogBoxService.showItem("가방", repository.items);
-                System.out.print("조사할 아이템: ");
-                String pickk = scanner.nextLine();
+                String pickk = dialogBoxService.showItem("가방", repository.items);
                 if(isNumber(pickk) && Integer.parseInt(pickk) < repository.items.size()){
                     System.out.print("무엇을 할까(1: 사용, 2: 조사, 3:나가기): ");
                     String pick = scanner.nextLine();
