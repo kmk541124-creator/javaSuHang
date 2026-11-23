@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class MoveController {
 
     public int location = 0;
+    public boolean ending = false;
     private Boolean script = false;
     private int retry = 0;
     Scanner scanner = new Scanner(System.in);
@@ -139,12 +140,28 @@ public class MoveController {
             }
         }
         location = service.Move(location, wantNext);
+        if(location == 7){
+            Ending();
+            return;
+        }
         Sence nextScene = repository.locations.get(location);
         if(!nextScene.first){
             nextScene.first();
             nextScene.dialogBoxService.skipping = false;
         }
         Print();
+    }
+
+    public void Ending(){
+        Sence moon = repository.locations.get(7);
+        for(String string : repository.endingString){
+            dialogBoxService.use(moon, "나", string);
+        }
+        dialogBoxService.skipping = false;
+        dialogBoxService.showArt(moon.getSeance());
+        System.out.println();
+        System.out.println("- THE END -");
+        ending = true;
     }
 
     public void Init(){

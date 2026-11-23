@@ -21,6 +21,9 @@ public class Repository {
     public ArrayList<String> firstReset = new ArrayList<>();
     public ArrayList<String> secondRest = new ArrayList<>();
 
+    // 엔딩
+    public ArrayList<String> endingString = new ArrayList<>();
+
     public Repository(){
         locations.add(new StartScene(this));
         locations.add(new HallScene());
@@ -99,6 +102,22 @@ public class Repository {
         secondRest.add("\"죽어야 한다.\"");
         secondRest.add("...");
         secondRest.add("젠장...");
+
+        endingString.add("...관측소다.");
+        endingString.add("천장이 갈라져 있고, 그 틈으로 하늘이 보인다.");
+        endingString.add("얼마 만에 보는 하늘인지 모르겠다.");
+        endingString.add("망원경 옆 책상에 낡은 일지가 놓여 있다.");
+        endingString.add(BOLD + "'실험 기록 - MEMENTO MORI'" + RESET);
+        endingString.add("'피험자는 죽을 때마다 같은 시간으로 돌아온다.'");
+        endingString.add("'피험자가 모든 것을 기억한 채 이곳에 도달하면, 실험은 종료된다.'");
+        endingString.add("...피험자.");
+        endingString.add("나였다.");
+        endingString.add("주머니 속 시계를 꺼낸다.");
+        endingString.add("11시 25분. 여전히 멈춰 있다.");
+        endingString.add("그때, 초침 없는 시계에서 째깍 소리가 난다.");
+        endingString.add("시계가... 움직인다.");
+        endingString.add("천장 틈으로 쏟아지는 달빛이 눈부시다.");
+        endingString.add("이제 끝났다.");
     }
 
     public void RemoveItemByName(String itemName)

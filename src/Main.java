@@ -35,7 +35,7 @@ void main() {
     dialogBoxService.skipping = false;
 
     repository.items.add(item);
-    while (true){
+    while (!moveController.ending){
         moveController.Init();
     }
 }
