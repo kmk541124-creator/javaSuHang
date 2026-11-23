@@ -1,6 +1,14 @@
 package entity.scene;
 
+import entity.interact.*;
+import repository.Repository;
+
+import java.util.ArrayList;
+
 public class BlockedLabScene extends Sence{
+
+    private ArrayList<Interact> list = new ArrayList<>();
+
     @Override
     public String getName(){
         return "폐쇠된 연구실";
@@ -37,5 +45,15 @@ public class BlockedLabScene extends Sence{
                 |_.-'                                                                                                                                                      '-._|
                 +--------------------------------------------------------------------------------------------------------------------------------------------------------------+
                 """;
+    }
+
+    @Override
+    public ArrayList<Interact> interacts(){
+        return list;
+    }
+
+    public BlockedLabScene(Repository repository){
+        list.add(new Wardrobe(this, repository));
+        list.add(new Computer(this,repository));
     }
 }

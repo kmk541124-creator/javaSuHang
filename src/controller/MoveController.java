@@ -41,9 +41,9 @@ public class MoveController {
                 case 2:
                     if(!((HallScene)repository.locations.get(this.location)).openRest)
                     {
-                        dialogBoxService.say("나", "잠겨있다.");
+                        dialogBoxService.use(repository.locations.get(1), "나", "잠겨있다.");
                         if(!repository.items.isEmpty()){
-                            dialogBoxService.say("나", "물건을 사용할까");
+                            dialogBoxService.use(repository.locations.get(1), "나", "물건을 사용할까");
                             System.out.print("Y or N: ");
                             String pick = scanner.nextLine();
                             if(pick.equals("Y") || pick.equals("y")){
@@ -52,11 +52,11 @@ public class MoveController {
                                     if(repository.items.get(Integer.parseInt(pick)).itemName.equals("식당 열쇠")){
                                         repository.locations.get(1).openRest();
                                     } else {
-                                        dialogBoxService.say("나","이건 사용할 수 없다");
+                                        dialogBoxService.use(repository.locations.get(1), "나","이건 사용할 수 없다");
                                     }
                                     return;
                                 } else {
-                                    dialogBoxService.say("나", "'그런 곳은 없다'");
+                                    dialogBoxService.use(repository.locations.get(1), "나", "'그런 곳은 없다'");
                                     return;
                                 }
                             } else{
@@ -70,9 +70,9 @@ public class MoveController {
                 case 4:
                     if(!((HallScene)repository.locations.get(this.location)).openBlock)
                     {
-                        dialogBoxService.say("나", "판자로 막혀있다.");
+                        dialogBoxService.use(repository.locations.get(1), "나", "판자로 막혀있다.");
                         if(!repository.items.isEmpty()){
-                            dialogBoxService.say("나", "물건을 사용할까");
+                            dialogBoxService.use(repository.locations.get(1), "나", "물건을 사용할까");
                             System.out.print("Y or N: ");
                             String pick = scanner.nextLine();
                             if(pick.equals("Y") || pick.equals("y")){
@@ -82,10 +82,10 @@ public class MoveController {
                                         repository.locations.get(1).openBlock();
 
                                     else
-                                        dialogBoxService.say("나","망치 아닌데 병시노ㅗㅗㅗㅗ");
+                                        dialogBoxService.use(repository.locations.get(1), "나","망치 아닌데 병시노ㅗㅗㅗㅗ");
                                     return;
                                 } else {
-                                    dialogBoxService.say("나", "'그런 곳은 없다'");
+                                    dialogBoxService.use(repository.locations.get(1), "나", "'그런 곳은 없다'");
                                     return;
                                 }
                             } else{
@@ -97,9 +97,10 @@ public class MoveController {
                 case 5:
                     if(!((HallScene)repository.locations.get(this.location)).openLab)
                     {
-                        dialogBoxService.say("나", "잠겨있다.");
+                        Sence now = repository.locations.get(1);
+                        dialogBoxService.use(now,"나", "잠겨있다.");
                         if(!repository.items.isEmpty()){
-                            dialogBoxService.say("나", "물건을 사용할까");
+                            dialogBoxService.use(now,"나", "물건을 사용할까");
                             System.out.print("Y or N: ");
                             String pick = scanner.nextLine();
                             if(pick.equals("Y") || pick.equals("y")){
@@ -110,16 +111,16 @@ public class MoveController {
                                             repository.locations.get(1).openLab();
                                             return;
                                         } else {
-                                            dialogBoxService.say("나","권한이 부족하다");
+                                            dialogBoxService.use(now,"나","권한이 부족하다");
                                             return;
                                         }
 
                                     } else {
-                                        dialogBoxService.say("나","이건 사용할 수 없다");
+                                        dialogBoxService.use(repository.locations.get(1), "나","이건 사용할 수 없다");
                                         return;
                                     }
                                 } else {
-                                    dialogBoxService.say("나", "'그런 곳은 없다'");
+                                    dialogBoxService.use(repository.locations.get(1), "나", "'그런 곳은 없다'");
                                     return;
                                 }
                             } else{
@@ -128,10 +129,11 @@ public class MoveController {
                         }
                         return;
                     }
+                    break;
                 case 6:
                     if(!((HallScene)repository.locations.get(this.location)).openApex)
                     {
-                        dialogBoxService.say("나", "비밀번호로 잠겨있다.");
+                        dialogBoxService.use(repository.locations.get(1), "나", "비밀번호로 잠겨있다.");
                         return;
                     }
             }
@@ -232,7 +234,7 @@ public class MoveController {
                 Interact nowPlace = places.get(Integer.parseInt(pick));
                 nowPlace.showInfo();
                 if(!repository.items.isEmpty()){
-                    dialogBoxService.say("나", "물건을 사용할까");
+                    dialogBoxService.use(nowScene, "나", "물건을 사용할까");
                     System.out.print("Y or N: ");
                     pick = scanner.nextLine();
                     if(pick.equals("Y") || pick.equals("y")){
@@ -240,7 +242,7 @@ public class MoveController {
                         if (isNumber(pick) && Integer.parseInt(pick) < repository.items.size()) {
                             nowPlace.used(repository.items.get(Integer.parseInt(pick)));
                         } else {
-                            dialogBoxService.say("나", "'그런 곳은 없다'");
+                            dialogBoxService.use(nowScene, "나", "'그런 곳은 없다'");
                         }
                     }
                 }

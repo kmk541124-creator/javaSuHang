@@ -2,7 +2,7 @@ package item;
 
 public class CardKey extends Item{
 
-    private int level;
+    private int level = 4;
 
     public CardKey(String itemName){
         super(itemName);

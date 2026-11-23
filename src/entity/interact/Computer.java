@@ -22,8 +22,8 @@ public class Computer extends Interact{
         if(item.itemName.equals(useItem.itemName)){
             if (item instanceof CardKey) {
                 ((CardKey) item).levelUp();
-                dialogBoxService.say("컴퓨터", "권한 업데이트");
-                dialogBoxService.say("나", "컴퓨터 전원이 꺼졌다");
+                dialogBoxService.use(blockedLabScene, "컴퓨터", "권한 업데이트");
+                dialogBoxService.use(blockedLabScene, "나", "컴퓨터 전원이 꺼졌다");
             }
             return false;
         } else {

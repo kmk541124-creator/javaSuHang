@@ -79,9 +79,7 @@ public class StartScene extends Sence{
         if (doorOpen) {
             return true;
         } else {
-            dialogBoxService.showArt(getSeance());
-            dialogBoxService.say("나", "'문이 잠겨있어 갈 수 없다'");
-            dialogBoxService.close();
+            dialogBoxService.use(this, "나", "'문이 잠겨있어 갈 수 없다'");
             return false;
         }
     }

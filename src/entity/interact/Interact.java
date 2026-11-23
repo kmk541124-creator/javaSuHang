@@ -31,9 +31,7 @@ public class Interact {
 
     public Boolean used(Item item){
         if(item.itemName.equals(useItem.itemName)){
-            dialogBoxService.showArt(place.getSeance());
-            dialogBoxService.say("나", useSay);
-            dialogBoxService.close();
+            dialogBoxService.use(place, "나", useSay);
             return true;
         } else {
             dialogBoxService.use(place, "나","딱히 사용할순 없을것 같다");
