@@ -71,4 +71,7 @@ public class HallScene extends Sence{
     }
     @Override
     public void openBlock() { this.openBlock = true; }
+
+    @Override
+    public void openApex() { this.openApex = true; }
 }

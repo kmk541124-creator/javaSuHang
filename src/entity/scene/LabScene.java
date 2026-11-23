@@ -1,6 +1,18 @@
 package entity.scene;
 
+import entity.interact.Code;
+import entity.interact.Interact;
+import entity.interact.RestCounter;
+import item.CodeNum;
+import repository.Repository;
+
+import java.util.ArrayList;
+
 public class LabScene extends Sence{
+
+    private ArrayList<Interact> list = new ArrayList<>();
+    private final Repository repository;
+
     @Override
     public String getName(){
         return "연구실";
@@ -37,5 +49,21 @@ public class LabScene extends Sence{
                 |_.-'                                                                                                  |_______|                                           '-._|
                 +--------------------------------------------------------------------------------------------------------------------------------------------------------------+
                 """;
+    }
+
+    public LabScene(Repository repository){
+        this.repository = repository;
+        list.add(new Code(this, repository));
+    }
+
+    @Override
+    public void reset(){
+        list.clear();
+        list.add(new Code(this, repository));
+    }
+
+    @Override
+    public ArrayList<Interact> interacts(){
+        return list;
     }
 }
